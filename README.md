@@ -400,7 +400,20 @@ Validate number by rules
 
 #### Example
 ```JS
-isNumberValid('1.2') // => true
+isNumberValid(1) // => true
+isNumberValid('1') // => true
+
+isNumberValid(1.5) // => true
+isNumberValid(1.5, {shouldLockFloatNumber: true} // => false
+
+isNumberValid(-1) // => true
+isNumberValid(-1, {shouldLockNegativeNumber: true} // => false
+
+isNumberValid('12a') // => false
+isNumberValid('12a', {allowableSymbols: ['a']}) // => true
+
+isNumberValid('1ab') // => false
+isNumberValid('1ab', {customRegExp: /[1-9][a-z]+/}) // => true
 ```
 
 
