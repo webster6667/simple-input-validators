@@ -4,7 +4,7 @@
 
 # simple-input-validators
 
-> description
+> Functions for validate enter data
 
 [![npm version](https://badge.fury.io/js/simple-input-validators.svg)](https://www.npmjs.com/package/simple-input-validators)
 [![](https://data.jsdelivr.com/v1/package/npm/simple-input-validators/badge)](https://www.jsdelivr.com/package/npm/simple-input-validators)
