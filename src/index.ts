@@ -264,6 +264,8 @@ const isNumberValid: NumberValidator = (writtenValue, numberRules = {}) => {
     return isNumberValid
 }
 
+//@todo: Добавить обработчик ошибок простой и удобный для всех систем
+
 export {
     isShorterThanLimit,
     isLongerThanLimit,

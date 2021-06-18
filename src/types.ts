@@ -35,7 +35,8 @@ export interface NumberValidatorRulesProps {
     shouldLockFloatNumber?: boolean,
     allowableSymbols?: string[],
     customRegExp?: RegExp,
-    isLiveValidator?: boolean
+    isLiveValidator?: boolean,
+    [key: string]: any;
 }
 
 export type NumberValidator = (writtenValue: string | number | null, numberRules?: NumberValidatorRulesProps) => boolean

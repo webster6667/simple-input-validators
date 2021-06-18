@@ -29,5 +29,6 @@ export interface NumberValidatorRulesProps {
     allowableSymbols?: string[];
     customRegExp?: RegExp;
     isLiveValidator?: boolean;
+    [key: string]: any;
 }
 export declare type NumberValidator = (writtenValue: string | number | null, numberRules?: NumberValidatorRulesProps) => boolean;
