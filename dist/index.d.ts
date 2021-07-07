@@ -1,4 +1,4 @@
-import { Validator, SimpleValidator, NumberValidator } from './types';
+import { Validator, SimpleValidator, NumberValidator, ErrorDataHandler } from './types';
 /**
  * @description
  * function that check is write value shorted than limit
@@ -107,4 +107,28 @@ declare const isMailInvalid: SimpleValidator;
  * isNumberValid('1ab', {customRegExp: /[1-9][a-z]+/}) // => true
  */
 declare const isNumberValid: NumberValidator;
-export { isShorterThanLimit, isLongerThanLimit, isGreaterThanLimit, isLessThanLimit, isWrittenValueEmpty, isMailInvalid, isNumberValid };
+/**
+ * @description
+ * function update commonErrorData values to new input props
+ *
+ * @param {} commonErrorData - object that have all error state for single input
+ * @param {} propsToUpdate - new props that must be update in commonErrorData
+ *
+ * @example
+ * const commonErrorData = {
+ *          hasError: false,
+ *          message: ''
+ *       },
+ *       validatorRules = {
+ *          message: 'errorMessage'
+ *       }
+ *
+ * errorDataHandler(commonErrorData, {...validatorRules, hasError: true}) // => void
+ *
+ * console.log(commonErrorData) // => {
+ *          hasError: true,
+ *          message: 'errorMessage'
+ * }
+ */
+declare const errorDataHandler: ErrorDataHandler;
+export { isShorterThanLimit, isLongerThanLimit, isGreaterThanLimit, isLessThanLimit, isWrittenValueEmpty, isMailInvalid, isNumberValid, errorDataHandler };

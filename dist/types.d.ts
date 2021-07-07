@@ -31,4 +31,8 @@ export interface NumberValidatorRulesProps {
     isLiveValidator?: boolean;
     [key: string]: any;
 }
+export interface CommonErrorData {
+    [key: string]: any;
+}
+export declare type ErrorDataHandler = <T extends CommonErrorData>(commonErrorData: T, propsToUpdate: Partial<T>) => void;
 export declare type NumberValidator = (writtenValue: string | number | null, numberRules?: NumberValidatorRulesProps) => boolean;

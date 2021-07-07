@@ -3,7 +3,8 @@ import {
     ValidatorSettingsProps,
     SimpleValidator,
     NumberValidator,
-    NumberValidatorRulesProps
+    NumberValidatorRulesProps,
+    ErrorDataHandler
 } from './types'
 
 /**
@@ -264,7 +265,42 @@ const isNumberValid: NumberValidator = (writtenValue, numberRules = {}) => {
     return isNumberValid
 }
 
-//@todo: Добавить обработчик ошибок простой и удобный для всех систем
+/**
+ * @description
+ * function update commonErrorData values to new input props
+ *
+ * @param {} commonErrorData - object that have all error state for single input
+ * @param {} propsToUpdate - new props that must be update in commonErrorData
+ *
+ * @example
+ * const commonErrorData = {
+ *          hasError: false,
+ *          message: ''
+ *       },
+ *       validatorRules = {
+ *          message: 'errorMessage'
+ *       }
+ *
+ * errorDataHandler(commonErrorData, {...validatorRules, hasError: true}) // => void
+ *
+ * console.log(commonErrorData) // => {
+ *          hasError: true,
+ *          message: 'errorMessage'
+ * }
+ */
+const errorDataHandler: ErrorDataHandler = (commonErrorData, propsToUpdate) => {
+
+    Object.keys(commonErrorData).forEach((commonErrorKey) => {
+        const updatedValue = propsToUpdate[commonErrorKey]
+
+        if (updatedValue) {
+            //@ts-ignore
+            commonErrorData[commonErrorKey] = updatedValue
+        }
+
+    })
+    
+}
 
 export {
     isShorterThanLimit,
@@ -273,5 +309,6 @@ export {
     isLessThanLimit,
     isWrittenValueEmpty,
     isMailInvalid,
-    isNumberValid
+    isNumberValid,
+    errorDataHandler
 }

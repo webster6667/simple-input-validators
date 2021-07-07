@@ -23,6 +23,7 @@
   - [isWrittenValueEmpty](#isWrittenValueEmpty)
   - [isMailInvalid](#isMailInvalid)
   - [isNumberValid](#isNumberValid)
+  - [errorDataHandler](#errorDataHandler)
 
 ## Quick start
 
@@ -75,38 +76,70 @@ import {
     isLessThanLimit,
     isWrittenValueEmpty,
     isMailInvalid,
-    isNumberValid
+    isNumberValid,
+    errorDataHandler
 } from 'simple-input-validators';
 
-let hasError = false,
+let hasError = true,
+    inputRules = {
+        minLengthRules: {
+            limit: 1,
+            message: 'is short'
+        },
+        maxLengthRules: {
+            limit: 3,
+            message: 'is long'
+        },
+        isEmptyRules: {
+            message: 'is empty'
+        },
+        maxValueRules: {
+            limit: 125,
+            message: 'is greater'
+        },
+        minValueRules: {
+            limit: 10,
+            message: 'is less'
+        },
+        emailRules: {
+            message: 'not valid email'
+        },
+        numberRules: {
+            message: 'not valid number'
+        },
+    },
+    commonErrorData = {
+        hasError: false,
+        message: ''
+    },
     writtenValue = '55'
 
-if (isShorterThanLimit(writtenValue, {limit: 1})) {
-    hasError = true
+if (isShorterThanLimit(writtenValue, inputRules.minLengthRules)) {
+    errorDataHandler(commonErrorData, {...inputRules.minLengthRules, hasError})
 }
 
-if (isLongerThanLimit(writtenValue, {limit: 3})) {
-    hasError = true
+if (isLongerThanLimit(writtenValue, inputRules.maxLengthRules)) {
+    errorDataHandler(commonErrorData, {...inputRules.maxLengthRules, hasError})
 }
 
 if (isWrittenValueEmpty(writtenValue)) {
-    hasError = true
+    errorDataHandler(commonErrorData, {...inputRules.isEmptyRules, hasError})
 }
 
-if (isGreaterThanLimit(writtenValue, {limit: 125})) {
-    hasError = true
+if (isGreaterThanLimit(writtenValue, inputRules.maxValueRules)) {
+    errorDataHandler(commonErrorData, {...inputRules.maxValueRules, hasError})
 }
 
-if (isLessThanLimit(writtenValue, {limit: 10})) {
-    hasError = true
+if (isLessThanLimit(writtenValue, inputRules.minValueRules)) {
+    errorDataHandler(commonErrorData, {...inputRules.minValueRules, hasError})
 }
 
 if (isMailInvalid(writtenValue)) {
-    hasError = true
+    errorDataHandler(commonErrorData, {...inputRules.emailRules, hasError})
 }
 
 if (!isNumberValid(writtenValue)) {
-    hasError = true
+    errorDataHandler(commonErrorData, {...inputRules.numberRules, hasError})
 }
 
 ```
@@ -122,38 +155,70 @@ const { isShorterThanLimit,
         isLessThanLimit,
         isWrittenValueEmpty,
         isMailInvalid,
-        isNumberValid
+        isNumberValid,
+        errorDataHandler
 } = require('simple-input-validators');
 
-let hasError = false,
+let hasError = true,
+    inputRules = {
+        minLengthRules: {
+        limit: 1,
+            message: 'is short'
+        },
+        maxLengthRules: {
+            limit: 3,
+            message: 'is long'
+        },
+        isEmptyRules: {
+            message: 'is empty'
+        },
+        maxValueRules: {
+            limit: 125,
+            message: 'is greater'
+        },
+        minValueRules: {
+            limit: 10,
+            message: 'is less'
+        },
+        emailRules: {
+            message: 'not valid email'
+        },
+        numberRules: {
+            message: 'not valid number'
+        },
+    },
+    commonErrorData = {
+        hasError: false,
+        message: ''
+    },
     writtenValue = '55'
 
-if (isShorterThanLimit(writtenValue, {limit: 1})) {
-    hasError = true
+if (isShorterThanLimit(writtenValue, inputRules.minLengthRules)) {
+    errorDataHandler(commonErrorData, {...inputRules.minLengthRules, hasError})
 }
 
-if (isLongerThanLimit(writtenValue, {limit: 3})) {
-    hasError = true
+if (isLongerThanLimit(writtenValue, inputRules.maxLengthRules)) {
+    errorDataHandler(commonErrorData, {...inputRules.maxLengthRules, hasError})
 }
 
 if (isWrittenValueEmpty(writtenValue)) {
-    hasError = true
+    errorDataHandler(commonErrorData, {...inputRules.isEmptyRules, hasError})
 }
 
-if (isGreaterThanLimit(writtenValue, {limit: 125})) {
-    hasError = true
+if (isGreaterThanLimit(writtenValue, inputRules.maxValueRules)) {
+    errorDataHandler(commonErrorData, {...inputRules.maxValueRules, hasError})
 }
 
-if (isLessThanLimit(writtenValue, {limit: 10})) {
-    hasError = true
+if (isLessThanLimit(writtenValue, inputRules.minValueRules)) {
+    errorDataHandler(commonErrorData, {...inputRules.minValueRules, hasError})
 }
 
 if (isMailInvalid(writtenValue)) {
-    hasError = true
+    errorDataHandler(commonErrorData, {...inputRules.emailRules, hasError})
 }
 
 if (!isNumberValid(writtenValue)) {
-    hasError = true
+    errorDataHandler(commonErrorData, {...inputRules.numberRules, hasError})
 }
 ```
 
@@ -166,35 +231,66 @@ Connect to html file ```<script src="https://cdn.jsdelivr.net/npm/simple-input-v
 ```html
 <script>
 
-    let hasError = false,
+    let hasError = true,
+        inputRules = {
+            minLengthRules: {
+                limit: 1,
+                message: 'is short'
+            },
+            maxLengthRules: {
+                limit: 3,
+                message: 'is long'
+            },
+            isEmptyRules: {
+                message: 'is empty'
+            },
+            maxValueRules: {
+                limit: 125,
+                message: 'is greater'
+            },
+            minValueRules: {
+                limit: 10,
+                message: 'is less'
+            },
+            emailRules: {
+                message: 'not valid email'
+            },
+            numberRules: {
+                message: 'not valid number'
+            },
+        },
+        commonErrorData = {
+            hasError: false,
+            message: ''
+        },
         writtenValue = '55'
 
-    if (simpleInputValidators.isShorterThanLimit(writtenValue, {limit: 1})) {
-        hasError = true
+    if (simpleInputValidators.isShorterThanLimit(writtenValue, inputRules.minLengthRules)) {
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.minLengthRules, hasError})
     }
 
-    if (simpleInputValidators.isLongerThanLimit(writtenValue, {limit: 3})) {
-        hasError = true
+    if (simpleInputValidators.isLongerThanLimit(writtenValue, inputRules.maxLengthRules)) {
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.maxLengthRules, hasError})
     }
 
     if (simpleInputValidators.isWrittenValueEmpty(writtenValue)) {
-        hasError = true
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.isEmptyRules, hasError})
     }
 
-    if (simpleInputValidators.isGreaterThanLimit(writtenValue, {limit: 125})) {
-        hasError = true
+    if (simpleInputValidators.isGreaterThanLimit(writtenValue, inputRules.maxValueRules)) {
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.maxValueRules, hasError})
     }
 
-    if (simpleInputValidators.isLessThanLimit(writtenValue, {limit: 10})) {
-        hasError = true
+    if (simpleInputValidators.isLessThanLimit(writtenValue, inputRules.minValueRules)) {
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.minValueRules, hasError})
     }
 
     if (simpleInputValidators.isMailInvalid(writtenValue)) {
-        hasError = true
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.emailRules, hasError})
     }
 
     if (!simpleInputValidators.isNumberValid(writtenValue)) {
-        hasError = true
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.numberRules, hasError})
     }
 
 </script>
@@ -209,35 +305,66 @@ simple-input-validators as an AMD module. Use with Require.js, System.js, and so
 
 ```js
 requirejs(['simple-input-validators'], function(simpleInputValidators) {
-    let hasError = false,
+    let hasError = true,
+        inputRules = {
+            minLengthRules: {
+                limit: 1,
+                message: 'is short'
+            },
+            maxLengthRules: {
+                limit: 3,
+                message: 'is long'
+            },
+                isEmptyRules: {
+                message: 'is empty'
+            },
+            maxValueRules: {
+                limit: 125,
+                message: 'is greater'
+            },
+            minValueRules: {
+                limit: 10,
+                message: 'is less'
+            },
+            emailRules: {
+                message: 'not valid email'
+            },
+            numberRules: {
+                message: 'not valid number'
+            },
+        },
+        commonErrorData = {
+            hasError: false,
+            message: ''
+        },
         writtenValue = '55'
 
-    if (simpleInputValidators.isShorterThanLimit(writtenValue, {limit: 1})) {
-        hasError = true
+    if (simpleInputValidators.isShorterThanLimit(writtenValue, inputRules.minLengthRules)) {
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.minLengthRules, hasError})
     }
 
-    if (simpleInputValidators.isLongerThanLimit(writtenValue, {limit: 3})) {
-        hasError = true
+    if (simpleInputValidators.isLongerThanLimit(writtenValue, inputRules.maxLengthRules)) {
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.maxLengthRules, hasError})
     }
 
     if (simpleInputValidators.isWrittenValueEmpty(writtenValue)) {
-        hasError = true
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.isEmptyRules, hasError})
     }
 
-    if (simpleInputValidators.isGreaterThanLimit(writtenValue, {limit: 125})) {
-        hasError = true
+    if (simpleInputValidators.isGreaterThanLimit(writtenValue, inputRules.maxValueRules)) {
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.maxValueRules, hasError})
     }
 
-    if (simpleInputValidators.isLessThanLimit(writtenValue, {limit: 10})) {
-        hasError = true
+    if (simpleInputValidators.isLessThanLimit(writtenValue, inputRules.minValueRules)) {
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.minValueRules, hasError})
     }
 
     if (simpleInputValidators.isMailInvalid(writtenValue)) {
-        hasError = true
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.emailRules, hasError})
     }
 
     if (!simpleInputValidators.isNumberValid(writtenValue)) {
-        hasError = true
+        simpleInputValidators.errorDataHandler(commonErrorData, {...inputRules.numberRules, hasError})
     }
 });
 ```
@@ -414,6 +541,39 @@ isNumberValid('12a', {allowableSymbols: ['a']}) // => true
 
 isNumberValid('1ab') // => false
 isNumberValid('1ab', {customRegExp: /[1-9][a-z]+/}) // => true
+```
+
+
+### errorDataHandler
+
+function update commonErrorData values to new input props
+
+
+#### Params
+- `commonErrorData`
+  
+  - Description: object that have all error state for single input
+- `propsToUpdate`
+  
+  - Description: new props that must be update in commonErrorData
+
+
+#### Example
+```JS
+const commonErrorData = {
+         hasError: false,
+         message: ''
+      },
+      validatorRules = {
+         message: 'errorMessage'
+      }
+
+errorDataHandler(commonErrorData, {...validatorRules, hasError: true}) // => void
+
+console.log(commonErrorData) // => {
+         hasError: true,
+         message: 'errorMessage'
+}
 ```
 
 
