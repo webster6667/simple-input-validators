@@ -9,6 +9,15 @@ export interface ValidatorSettingsProps {
     message?: null | string;
     [key: string]: any;
 }
+export declare type ValidatorWithArray = (
+/**
+ * Validation value
+ */
+writtenValue: string | number | any[], 
+/**
+ * Validator settings
+ */
+ValidatorSettingsProps: ValidatorSettingsProps) => boolean;
 export declare type Validator = (
 /**
  * Validation value
@@ -23,6 +32,11 @@ export declare type SimpleValidator = (
  * Validation value
  */
 writtenValue: string | number) => boolean;
+export declare type SimpleValidatorWithArray = (
+/**
+ * Validation value
+ */
+writtenValue: string | number | any[]) => boolean;
 export interface NumberValidatorRulesProps {
     shouldLockNegativeNumber?: boolean;
     shouldLockFloatNumber?: boolean;

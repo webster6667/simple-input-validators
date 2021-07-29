@@ -14,6 +14,14 @@ describe('isWrittenValueEmpty', () => {
         expect(isWrittenValueEmpty(1)).toBeFalsy()
     });
 
+    test('is function return false when written array is not empty', () => {
+        expect(isWrittenValueEmpty([1])).toBeFalsy()
+    });
+
+    test('is function return true when written array is empty', () => {
+        expect(isWrittenValueEmpty([])).toBeTruthy()
+    });
+
     test('is function throw error when written value is not string or number', () => {
 
         //@ts-ignore

@@ -11,6 +11,18 @@ export interface ValidatorSettingsProps {
     [key: string]: any
 }
 
+export type ValidatorWithArray = (
+    /**
+     * Validation value
+     */
+    writtenValue: string | number | any[],
+
+    /**
+     * Validator settings
+     */
+    ValidatorSettingsProps: ValidatorSettingsProps,
+) => boolean
+
 export type Validator = (
     /**
      * Validation value
@@ -28,6 +40,13 @@ export type SimpleValidator = (
      * Validation value
      */
     writtenValue: string | number,
+) => boolean
+
+export type SimpleValidatorWithArray = (
+    /**
+     * Validation value
+     */
+    writtenValue: string | number | any[],
 ) => boolean
 
 export interface NumberValidatorRulesProps {

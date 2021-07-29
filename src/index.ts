@@ -1,7 +1,9 @@
 import {
     Validator,
+    ValidatorWithArray,
     ValidatorSettingsProps,
     SimpleValidator,
+    SimpleValidatorWithArray,
     NumberValidator,
     NumberValidatorRulesProps,
     ErrorDataHandler
@@ -18,18 +20,27 @@ import {
  * @example
  * isShorterThanLimit('abcd',{limit: 5})
  * // => true
+ *
+ * isShorterThanLimit(['a','b','c','d'],{limit: 5})
+ * // => true
  */
-const isShorterThanLimit: Validator = (writtenValue, validatorSettings = {}) => {
+const isShorterThanLimit: ValidatorWithArray = (writtenValue, validatorSettings = {}) => {
     const {limit: notConvertLimit = null} = validatorSettings,
           limit = typeof notConvertLimit === 'string' ? Number(notConvertLimit) : notConvertLimit,
-          isWrittenValueHasInvalidType = !['string', 'number'].includes(typeof writtenValue),
-          writtenValueLength = String(writtenValue).length,
+          isWrittenValueHasInvalidType = Array.isArray(writtenValue) ? false : !['string', 'number'].includes(typeof writtenValue),
+          isLimitHasInvalidType = typeof limit !== 'number' && limit !== null || limit !== null && isNaN(limit),
+          writtenValueLength = Array.isArray(writtenValue) ? writtenValue.length : String(writtenValue).length,
           isWrittenValueShorterThanLimit = typeof limit === 'number' && writtenValueLength < limit
+    
+    /**
+     * limit type validator
+     */
+    if (isLimitHasInvalidType) throw new TypeError(`limit value must be only number or number in string like '1'`)
 
     /**
      * written value type validator
      */
-    if (isWrittenValueHasInvalidType) throw new TypeError(`written value can be only string or number`)
+    if (isWrittenValueHasInvalidType) throw new TypeError(`written value must be only string, number or array`)
 
     return isWrittenValueShorterThanLimit
 }
@@ -45,18 +56,27 @@ const isShorterThanLimit: Validator = (writtenValue, validatorSettings = {}) => 
  * @example
  * isLongerThanLimit('abcd',{limit: 3})
  * // => true
+ *
+ * isLongerThanLimit(['a','b','c','d'],{limit: 3})
+ * // => true
  */
-const isLongerThanLimit: Validator = (writtenValue, validatorSettings = {}) => {
+const isLongerThanLimit: ValidatorWithArray = (writtenValue, validatorSettings = {}) => {
     const {limit: notConvertLimit = null} = validatorSettings,
         limit = typeof notConvertLimit === 'string' ? Number(notConvertLimit) : notConvertLimit,
-        isWrittenValueHasInvalidType = !['string', 'number'].includes(typeof writtenValue),
-        writtenValueLength = String(writtenValue).length,
+        isWrittenValueHasInvalidType = Array.isArray(writtenValue) ? false : !['string', 'number'].includes(typeof writtenValue),
+        isLimitHasInvalidType = typeof limit !== 'number' && limit !== null || limit !== null && isNaN(limit),
+        writtenValueLength = Array.isArray(writtenValue) ? writtenValue.length : String(writtenValue).length,
         isWrittenValueLongerThanLimit = typeof limit === 'number' && writtenValueLength > limit
-    
+
+    /**
+     * limit type validator
+     */
+    if (isLimitHasInvalidType) throw new TypeError(`limit value must be only number or number in string like '1'`)
+
     /**
      * written value type validator
      */
-    if (isWrittenValueHasInvalidType) throw new TypeError(`written value can be only string or number`)
+    if (isWrittenValueHasInvalidType) throw new TypeError(`written value must be only string, number or array`)
 
     return isWrittenValueLongerThanLimit
 }
@@ -72,13 +92,29 @@ const isLongerThanLimit: Validator = (writtenValue, validatorSettings = {}) => {
  * @example
  * isGreaterThanLimit(5,{limit: 3})
  * // => true
+ *
+ * // install package: https://www.npmjs.com/package/get-array-sum
+ * import getArraySum from 'get-array-sum';
+ *
+ * const arraySum = getArraySum([1,2,3]), //6
+ *       shouldValidateArray = !isNaN(arraySum) //true
+ *
+ * if (shouldValidateArray) {
+ *   isGreaterThanLimit(arraySum,{limit: 3}) // true
+ * }
+ *
  */
 const isGreaterThanLimit: Validator = (writtenValue, validatorSettings = {}) => {
     const {limit: notConvertLimit = null} = validatorSettings,
         limit = typeof notConvertLimit === 'string' ? Number(notConvertLimit) : notConvertLimit,
         isWrittenValueHasInvalidType = isNaN(Number(writtenValue)) || writtenValue === null,
+        isLimitHasInvalidType = typeof limit !== 'number' && limit !== null || limit !== null && isNaN(limit),
         isWrittenValueGreaterThanLimit = typeof limit === 'number' && Number(writtenValue) > limit
 
+    /**
+     * limit type validator
+     */
+    if (isLimitHasInvalidType) throw new TypeError(`limit value must be only number or number in string like '1'`)
     
     /**
      * written value type validator
@@ -99,13 +135,30 @@ const isGreaterThanLimit: Validator = (writtenValue, validatorSettings = {}) => 
  * @example
  * isLessThanLimit(2,{limit: 3})
  * // => true
+ *
+ * // install package: https://www.npmjs.com/package/get-array-sum
+ * import getArraySum from 'get-array-sum';
+ *
+ * const arraySum = getArraySum([1,2,3]), //6
+ *       shouldValidateArray = !isNaN(arraySum) //true
+ *
+ * if (shouldValidateArray) {
+ *   isLessThanLimit(arraySum,{limit: 10}) // true
+ * }
+ *
  */
 const isLessThanLimit: Validator = (writtenValue, validatorSettings = {}) => {
     const {limit: notConvertLimit = null} = validatorSettings,
         limit = typeof notConvertLimit === 'string' ? Number(notConvertLimit) : notConvertLimit,
         isWrittenValueHasInvalidType = isNaN(Number(writtenValue)) || writtenValue === null,
+        isLimitHasInvalidType = typeof limit !== 'number' && limit !== null || limit !== null && isNaN(limit),
         isWrittenValueLessThanLimit = typeof limit === 'number' && Number(writtenValue) < limit
 
+
+    /**
+     * limit type validator
+     */
+    if (isLimitHasInvalidType) throw new TypeError(`limit value must be only number or number in string like '1'`)
 
     /**
      * written value type validator
@@ -125,10 +178,13 @@ const isLessThanLimit: Validator = (writtenValue, validatorSettings = {}) => {
  * @example
  * isWrittenValueEmpty('')
  * // => true
+ *
+ * isWrittenValueEmpty([])
+ * // => true
  */
-const isWrittenValueEmpty: SimpleValidator = (writtenValue) => {
-    const isWrittenValueHasInvalidType = ['object', 'function', 'undefined'].includes(typeof writtenValue),
-          writtenValueLength = String(writtenValue).length,
+const isWrittenValueEmpty: SimpleValidatorWithArray = (writtenValue) => {
+    const isWrittenValueHasInvalidType = Array.isArray(writtenValue) ? false : !['string', 'number'].includes(typeof writtenValue),
+          writtenValueLength = Array.isArray(writtenValue) ? writtenValue.length : String(writtenValue).length,
           isWrittenValueEmpty = writtenValueLength === 0
 
     /**
@@ -154,7 +210,7 @@ const isWrittenValueEmpty: SimpleValidator = (writtenValue) => {
  * // => false
  */
 const isMailInvalid: SimpleValidator = (writtenValue) => {
-    const isWrittenValueHasInvalidType = ['object', 'function','undefined'].includes(typeof writtenValue),
+    const isWrittenValueHasInvalidType = !['string','number'].includes(typeof writtenValue),
           isMailInvalid = !/.+@.+\..+/i.test(String(writtenValue))
 
     /**
@@ -194,7 +250,7 @@ const isMailInvalid: SimpleValidator = (writtenValue) => {
  * isNumberValid('1ab', {customRegExp: /[1-9][a-z]+/}) // => true
  */
 const isNumberValid: NumberValidator = (writtenValue, numberRules = {}) => {
-    const isWrittenValueHasInvalidType = ['object', 'function', 'undefined'].includes(typeof writtenValue) || writtenValue === null
+    const isWrittenValueHasInvalidType = !['string', 'number'].includes(typeof writtenValue) || writtenValue === null
     writtenValue = String(writtenValue)
 
     /**

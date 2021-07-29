@@ -391,6 +391,9 @@ function that check is write value shorted than limit
 ```JS
 isShorterThanLimit('abcd',{limit: 5})
 // => true
+
+isShorterThanLimit(['a','b','c','d'],{limit: 5})
+// => true
 ```
 
 
@@ -413,6 +416,9 @@ function that check is write value longer than limit
 #### Example
 ```JS
 isLongerThanLimit('abcd',{limit: 3})
+// => true
+
+isLongerThanLimit(['a','b','c','d'],{limit: 3})
 // => true
 ```
 
@@ -437,6 +443,16 @@ function that check is write value greater than limit
 ```JS
 isGreaterThanLimit(5,{limit: 3})
 // => true
+
+// install package: https://www.npmjs.com/package/get-array-sum
+import getArraySum from 'get-array-sum';
+
+const arraySum = getArraySum([1,2,3]), //6
+      shouldValidateArray = !isNaN(arraySum) //true
+
+if (shouldValidateArray) {
+  isGreaterThanLimit(arraySum,{limit: 3}) // true
+}
 ```
 
 
@@ -460,6 +476,16 @@ function that check is write value less than limit
 ```JS
 isLessThanLimit(2,{limit: 3})
 // => true
+
+// install package: https://www.npmjs.com/package/get-array-sum
+import getArraySum from 'get-array-sum';
+
+const arraySum = getArraySum([1,2,3]), //6
+      shouldValidateArray = !isNaN(arraySum) //true
+
+if (shouldValidateArray) {
+  isLessThanLimit(arraySum,{limit: 10}) // true
+}
 ```
 
 
@@ -479,6 +505,9 @@ function that check is write value empty
 #### Example
 ```JS
 isWrittenValueEmpty('')
+// => true
+
+isWrittenValueEmpty([])
 // => true
 ```
 

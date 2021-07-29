@@ -1,4 +1,4 @@
-import { Validator, SimpleValidator, NumberValidator, ErrorDataHandler } from './types';
+import { Validator, ValidatorWithArray, SimpleValidator, SimpleValidatorWithArray, NumberValidator, ErrorDataHandler } from './types';
 /**
  * @description
  * function that check is write value shorted than limit
@@ -10,8 +10,11 @@ import { Validator, SimpleValidator, NumberValidator, ErrorDataHandler } from '.
  * @example
  * isShorterThanLimit('abcd',{limit: 5})
  * // => true
+ *
+ * isShorterThanLimit(['a','b','c','d'],{limit: 5})
+ * // => true
  */
-declare const isShorterThanLimit: Validator;
+declare const isShorterThanLimit: ValidatorWithArray;
 /**
  * @description
  * function that check is write value longer than limit
@@ -23,8 +26,11 @@ declare const isShorterThanLimit: Validator;
  * @example
  * isLongerThanLimit('abcd',{limit: 3})
  * // => true
+ *
+ * isLongerThanLimit(['a','b','c','d'],{limit: 3})
+ * // => true
  */
-declare const isLongerThanLimit: Validator;
+declare const isLongerThanLimit: ValidatorWithArray;
 /**
  * @description
  * function that check is write value greater than limit
@@ -36,6 +42,17 @@ declare const isLongerThanLimit: Validator;
  * @example
  * isGreaterThanLimit(5,{limit: 3})
  * // => true
+ *
+ * // install package: https://www.npmjs.com/package/get-array-sum
+ * import getArraySum from 'get-array-sum';
+ *
+ * const arraySum = getArraySum([1,2,3]), //6
+ *       shouldValidateArray = !isNaN(arraySum) //true
+ *
+ * if (shouldValidateArray) {
+ *   isGreaterThanLimit(arraySum,{limit: 3}) // true
+ * }
+ *
  */
 declare const isGreaterThanLimit: Validator;
 /**
@@ -49,6 +66,17 @@ declare const isGreaterThanLimit: Validator;
  * @example
  * isLessThanLimit(2,{limit: 3})
  * // => true
+ *
+ * // install package: https://www.npmjs.com/package/get-array-sum
+ * import getArraySum from 'get-array-sum';
+ *
+ * const arraySum = getArraySum([1,2,3]), //6
+ *       shouldValidateArray = !isNaN(arraySum) //true
+ *
+ * if (shouldValidateArray) {
+ *   isLessThanLimit(arraySum,{limit: 10}) // true
+ * }
+ *
  */
 declare const isLessThanLimit: Validator;
 /**
@@ -61,8 +89,11 @@ declare const isLessThanLimit: Validator;
  * @example
  * isWrittenValueEmpty('')
  * // => true
+ *
+ * isWrittenValueEmpty([])
+ * // => true
  */
-declare const isWrittenValueEmpty: SimpleValidator;
+declare const isWrittenValueEmpty: SimpleValidatorWithArray;
 /**
  * @description
  * function that check is write mail invalid
