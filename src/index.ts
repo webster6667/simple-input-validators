@@ -273,7 +273,7 @@ const isNumberValid: NumberValidator = (writtenValue, numberRules = {}) => {
         /**
          * Допустимые символы
          */
-        allowableSymbolsRegExpString = `${allowableValidateSymbols}1-9`,
+        allowableSymbolsRegExpString = `${allowableValidateSymbols}0-9`,
         defaultRegExp = new RegExp(`^[-]?([${allowableSymbolsRegExpString}]+)?[.]?([${allowableSymbolsRegExpString}]+)?$`),
         invalidPatternList = isLiveValidator ? ['-.', '.', '.-'] : ['-.', '.', '.-', '-'],
         hasWriteValueInvalidPattern = invalidPatternList.includes(writtenValue),

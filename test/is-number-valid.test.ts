@@ -7,6 +7,10 @@ describe('input number validator test', () => {
         expect(isNumberValid(1)).toBeTruthy()
     });
 
+    test('0 is valid', () => {
+        expect(isNumberValid(0)).toBeTruthy()
+    });
+
     test('negative number is valid', () => {
         expect(isNumberValid(-1)).toBeTruthy()
     });
